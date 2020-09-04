@@ -1,11 +1,12 @@
 package me.alfredobejarano.bitsocodechallenge.injection
 
-import android.app.Application
+import android.content.Context
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import me.alfredobejarano.bitsocodechallenge.BuildConfig
 import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDao
 import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDatabase
@@ -23,7 +24,7 @@ import javax.inject.Singleton
  */
 @Module
 @InstallIn(ApplicationComponent::class)
-class DataSourceModule(private val application: Application) {
+class DataSourceModule {
     private val gsonConverterFactory by lazy { GsonConverterFactory.create(Gson()) }
 
     private val httpLoggingInterceptor by lazy {
@@ -60,9 +61,11 @@ class DataSourceModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideCacheManager(): CacheManager = CacheManager.getInstance(application)
+    fun provideBookDao(@ApplicationContext ctx: Context): BookDao =
+        BookDatabase.getInstance(ctx).provideBookDao()
 
     @Provides
     @Singleton
-    fun provideBookDao(): BookDao = BookDatabase.getInstance(application).provideBookDao()
+    fun provideCacheManager(@ApplicationContext ctx: Context): CacheManager =
+        CacheManager.getInstance(ctx)
 }
