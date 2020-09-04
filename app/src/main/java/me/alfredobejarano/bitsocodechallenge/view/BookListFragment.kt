@@ -21,7 +21,9 @@ class BookListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getBooks().observe(viewLifecycleOwner, Observer {
-            Log.d("Book", it.toString())
+            it.forEach { book ->
+                Log.d("Book", book.toString())
+            }
         })
     }
 }
