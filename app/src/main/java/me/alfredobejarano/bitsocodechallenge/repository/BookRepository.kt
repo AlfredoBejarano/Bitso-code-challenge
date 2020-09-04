@@ -26,7 +26,8 @@ class BookRepository @Inject constructor(
      */
     private suspend fun getRemoteBooks() = remoteDataSource.getAvailableBooks().payload
         ?.map { getBookTicker(it.book.orEmpty()) }
-        ?.requireNoNulls()?.map(mapper::map)
+        ?.requireNoNulls()
+        ?.map(mapper::map)
         ?: emptyList()
 
     /**
