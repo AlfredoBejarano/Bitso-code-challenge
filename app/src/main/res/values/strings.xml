@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Bitso Code Challenge</string>
+    <string name="generic_error_message">Something wrong happened!</string>
+    <string name="retry">Retry</string>
 </resources>

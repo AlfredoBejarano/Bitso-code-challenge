@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
@@ -38,3 +39,9 @@ fun <T> Fragment.viewBinding(initialize: (inflater: LayoutInflater) -> T): ReadO
                 }
         }
     }
+
+fun <T> Fragment.observe(liveData: LiveData<T>, onChanged: (T) -> Unit) {
+    liveData.observe(viewLifecycleOwner, Observer {
+        it?.run(onChanged) ?: EventManager.reportLoading(false)
+    })
+}
