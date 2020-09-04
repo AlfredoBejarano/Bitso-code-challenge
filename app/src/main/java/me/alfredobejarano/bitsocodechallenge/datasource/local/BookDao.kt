@@ -1,6 +1,7 @@
 package me.alfredobejarano.bitsocodechallenge.datasource.local
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,7 +17,7 @@ interface BookDao {
      * If the record already exists, the book data will be updated.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createOrUpdate()
+    suspend fun createOrUpdate(book: Book)
 
     /**
      * Retrieves the details of a Book from the local cache.
@@ -31,4 +32,16 @@ interface BookDao {
      */
     @Query("SELECT * FROM Books ORDER BY pk")
     suspend fun readAll(): List<Book>?
+
+    /**
+     * Deletes a book from the cache.
+     */
+    @Delete
+    suspend fun delete(book: Book)
+
+    /**
+     * Deletes all records from the local cache.
+     */
+    @Query("DELETE FROM Books")
+    suspend fun deleteAll()
 }
