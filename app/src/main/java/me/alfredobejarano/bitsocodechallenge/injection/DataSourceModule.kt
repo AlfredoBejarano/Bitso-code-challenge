@@ -45,7 +45,7 @@ class DataSourceModule(private val application: Application) {
     private val retrofitClient by lazy {
         Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("TODO - Bitso API")
+            .baseUrl(BuildConfig.BITSO_API_BASE_URL)
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
