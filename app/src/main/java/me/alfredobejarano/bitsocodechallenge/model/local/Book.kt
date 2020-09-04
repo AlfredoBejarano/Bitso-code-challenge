@@ -15,4 +15,8 @@ data class Book(
     val bidPrice: Double = 0.0,
     val askPrice: Double = 0.0,
     val lastPrice: Double = 0.0
-)
+) {
+    fun areContentsTheSame(other: Book) = book == other.book && volume == other.volume &&
+        dayLow == other.dayLow && dayHigh == other.dayHigh && bidPrice == other.bidPrice &&
+        askPrice == other.askPrice && lastPrice == other.lastPrice
+}

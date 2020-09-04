@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp">
+<layout>
 
-    <TextView
-        android:id="@+id/book_name"
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="book"
+            type="me.alfredobejarano.bitsocodechallenge.model.local.Book" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="true"
-        android:textColor="?android:attr/colorAccent"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Bitcoin" />
+        android:padding="8dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textAllCaps="true"
-        android:textColor="?android:attr/textColorTertiary"
-        android:textSize="12sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/book_name"
-        app:layout_constraintBottom_toBottomOf="@id/book_name"
-        app:layout_constraintStart_toEndOf="@+id/book_name"
-        app:layout_constraintTop_toTopOf="@id/book_name"
-        tools:text="btc/mxn" />
+        <TextView
+            android:id="@+id/book_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{book.book.substring(0,2)}"
+            android:textAllCaps="true"
+            android:textColor="?android:attr/colorAccent"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Bitcoin" />
 
-    <TextView
-        android:id="@+id/book_last_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_name"
-        tools:text="$2,66.39" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{book.book}"
+            android:textAllCaps="true"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="12sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/book_name"
+            app:layout_constraintBottom_toBottomOf="@id/book_name"
+            app:layout_constraintStart_toEndOf="@+id/book_name"
+            app:layout_constraintTop_toTopOf="@id/book_name"
+            tools:text="btc/mxn" />
 
-    <TextView
-        android:id="@+id/dayLowHigh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="?android:attr/textColorTertiary"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_last_price"
-        tools:text="$5450.00 - $5750.00" />
+        <TextView
+            android:id="@+id/book_last_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_name"
+            tools:text="$2,66.39" />
 
-    <TextView
-        android:id="@+id/volume"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textColor="?android:attr/textColorTertiary"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/book_last_price"
-        tools:text="$30.9M in 24h" />
+        <TextView
+            android:id="@+id/dayLowHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_last_price"
+            tools:text="$5450.00 - $5750.00" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_last_price"
+            tools:text="$30.9M in 24h" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
