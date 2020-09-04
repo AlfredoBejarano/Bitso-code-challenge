@@ -20,5 +20,5 @@ data class Ticker(
     @SerializedName("created_at")
     var createdAt: String? = "",
     @SerializedName("bid")
-    var bid: String? = ""
+    var bid: Double? = 0.0
 )
