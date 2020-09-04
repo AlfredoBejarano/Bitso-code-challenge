@@ -10,6 +10,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.utils.EventManager
 
 class BookAdapter(private var books: List<Book>, private val onBookClick: (Book) -> Unit) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
@@ -32,6 +33,7 @@ class BookAdapter(private var books: List<Book>, private val onBookClick: (Book)
             launch(Dispatchers.Main) {
                 diff.dispatchUpdatesTo(this@BookAdapter)
                 books = newItems
+                EventManager.reportLoading(false)
             }
         }
     }
