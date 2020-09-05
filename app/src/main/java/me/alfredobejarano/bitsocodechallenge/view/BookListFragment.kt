@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -18,6 +17,7 @@ import me.alfredobejarano.bitsocodechallenge.databinding.FragmentBookListBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
 import me.alfredobejarano.bitsocodechallenge.utils.EventManager
 import me.alfredobejarano.bitsocodechallenge.utils.observe
+import me.alfredobejarano.bitsocodechallenge.utils.showSafely
 import me.alfredobejarano.bitsocodechallenge.utils.viewBinding
 import me.alfredobejarano.bitsocodechallenge.view.adapter.BookAdapter
 import me.alfredobejarano.bitsocodechallenge.viewmodel.BookListViewModel
@@ -66,13 +66,7 @@ class BookListFragment : Fragment() {
     }
 
     private fun observeEventManager() = EventManager.run {
-        loadingLiveData.observe(viewLifecycleOwner, Observer {
-            binding.swipeRefreshRoot.isRefreshing = it
-        })
-        errorLiveData.observe(viewLifecycleOwner, Observer {
-            if (snackBar?.isShown == false) {
-                snackBar?.show()
-            }
-        })
+        observe(loadingLiveData, binding.swipeRefreshRoot::setRefreshing)
+        observe(errorLiveData) { snackBar.showSafely() }
     }
 }
