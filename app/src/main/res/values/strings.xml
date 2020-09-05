@@ -4,4 +4,7 @@
     <string name="retry">Retry</string>
     <string name="dash_separator" translatable="false">%s - %s</string>
     <string name="daily_volume">%s in 24h</string>
+    <string name="bid_price">Bid</string>
+    <string name="ask_price">Ask</string>
+    <string name="spread">Spread</string>
 </resources>

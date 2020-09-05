@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="me.alfredobejarano.bitsocodechallenge.utils.NumberUtilsKt" />
+
+        <import type="me.alfredobejarano.bitsocodechallenge.utils.StringUtilsKt" />
+
+        <variable
+            name="book"
+            type="me.alfredobejarano.bitsocodechallenge.model.local.Book" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/back_control_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/crypto_name_text_view"
+            style="@style/AppTheme.AccentTextAppearance.NavigationTitleTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{StringUtilsKt.getCryptoName(book.book)}"
+            app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
+            app:layout_constraintBottom_toBottomOf="@id/back_control_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/back_control_icon"
+            tools:text="Ethereum" />
+
+        <TextView
+            android:id="@+id/book_text_view"
+            style="@style/AppTheme.TertiaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{book.book}"
+            android:textAllCaps="true"
+            app:layout_constraintBottom_toTopOf="@id/book_price_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/crypto_name_text_view"
+            app:layout_constraintVertical_bias="0.9025"
+            tools:text="btc_mxn" />
+
+        <TextView
+            android:id="@+id/book_price_text_view"
+            style="@style/AppTheme.AccentTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="?android:attr/textColorSecondary"
+            android:text="@{NumberUtilsKt.asPrice(book.lastPrice)}"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/crypto_name_text_view"
+            app:layout_constraintVertical_bias="0.15"
+            tools:text="$4,290.01" />
+
+        <TextView
+            android:id="@+id/dat_high_low_text_view"
+            style="@style/AppTheme.TertiaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/dash_separator(NumberUtilsKt.asPrice(book.dayLow),NumberUtilsKt.asPrice(book.dayHigh))}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/book_price_text_view"
+            app:layout_constraintVertical_bias="0.015"
+            tools:text="$5450.00 - $5750.00" />
+
+        <TextView
+            android:id="@+id/ask_price_label"
+            style="@style/AppTheme.TertiaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ask_price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/separator_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dat_high_low_text_view"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/ask_price"
+            style="@style/AppTheme.PrimaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{NumberUtilsKt.asPrice(book.askPrice)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/separator_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bid_price_label"
+            app:layout_constraintVertical_bias="0"
+            tools:text="$4,590.01" />
+
+        <View
+            android:id="@+id/separator_left"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/colorAccent"
+            android:rotation="15"
+            app:layout_constraintBottom_toBottomOf="@id/ask_price"
+            app:layout_constraintEnd_toStartOf="@id/separator_right"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ask_price_label"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/bid_price_label"
+            style="@style/AppTheme.TertiaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bid_price"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/separator_right"
+            app:layout_constraintStart_toEndOf="@id/separator_left"
+            app:layout_constraintTop_toBottomOf="@id/dat_high_low_text_view"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/bid_price"
+            style="@style/AppTheme.PrimaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{NumberUtilsKt.asPrice(book.bidPrice)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/separator_right"
+            app:layout_constraintStart_toEndOf="@id/separator_left"
+            app:layout_constraintTop_toBottomOf="@id/bid_price_label"
+            app:layout_constraintVertical_bias="0"
+            tools:text="$4,290.01" />
+
+        <View
+            android:id="@+id/separator_right"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/colorAccent"
+            android:rotation="15"
+            app:layout_constraintBottom_toBottomOf="@id/bid_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/separator_left"
+            app:layout_constraintTop_toTopOf="@id/bid_price_label"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/spread_price_label"
+            style="@style/AppTheme.TertiaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/spread"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/separator_right"
+            app:layout_constraintTop_toBottomOf="@id/dat_high_low_text_view"
+            app:layout_constraintVertical_bias="0.1" />
+
+        <TextView
+            android:id="@+id/spread_price"
+            style="@style/AppTheme.PrimaryTextAppearance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{NumberUtilsKt.asPrice(book.bidPrice - book.askPrice)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/separator_right"
+            app:layout_constraintTop_toBottomOf="@id/bid_price_label"
+            app:layout_constraintVertical_bias="0"
+            tools:text="$300.00" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

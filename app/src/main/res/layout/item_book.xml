@@ -18,16 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-        android:padding="16dp">
+        android:padding="16sp">
 
         <TextView
             android:id="@+id/book_name"
+            style="@style/AppTheme.AccentTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{StringUtilsKt.getCryptoName(book.book)}"
-            android:textAllCaps="true"
-            android:textColor="?android:attr/colorAccent"
-            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Bitcoin" />
@@ -47,13 +45,11 @@
 
         <TextView
             android:id="@+id/book_last_price"
+            style="@style/AppTheme.PrimaryTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@{NumberUtilsKt.asPrice(book.lastPrice)}"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/book_name"
             tools:text="$2,66.39" />
