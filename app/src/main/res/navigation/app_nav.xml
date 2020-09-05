@@ -9,5 +9,22 @@
         android:id="@+id/bookListFragment"
         android:name="me.alfredobejarano.bitsocodechallenge.view.BookListFragment"
         android:label="BookListFragment"
-        tools:layout="@layout/fragment_book_list" />
+        tools:layout="@layout/fragment_book_list" >
+        <action
+            android:id="@+id/showBookTicker"
+            app:destination="@id/tickerFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/tickerFragment"
+        android:name="me.alfredobejarano.bitsocodechallenge.view.TickerFragment"
+        android:label="TickerFragment"
+        tools:layout="@layout/fragment_book_ticker" >
+        <argument
+            android:name="Book"
+            app:argType="me.alfredobejarano.bitsocodechallenge.model.local.Book" />
+    </fragment>
 </navigation>

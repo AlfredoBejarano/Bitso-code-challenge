@@ -1,13 +1,13 @@
 package me.alfredobejarano.bitsocodechallenge.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
@@ -53,11 +53,12 @@ class BookListFragment : Fragment() {
         (binding.bookListView.adapter as? BookAdapter)?.updateList(books) ?: createAdapter(books)
 
     private fun createAdapter(books: List<Book>) {
-        binding.bookListView.adapter = BookAdapter(books) { book ->
-            Log.d("BOOK", "TODO - Take me to the next screen! ${book.book}")
-        }
+        binding.bookListView.adapter = BookAdapter(books, ::showBookTicker)
         EventManager.reportLoading(false)
     }
+
+    private fun showBookTicker(book: Book) =
+        findNavController().navigate(BookListFragmentDirections.showBookTicker(book))
 
     private fun createSnackBar() {
         snackBar = Snackbar.make(binding.root, generic_error_message, LENGTH_INDEFINITE)

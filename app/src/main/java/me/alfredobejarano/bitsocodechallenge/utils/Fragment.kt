@@ -18,7 +18,7 @@ fun <T> Fragment.viewBinding(initialize: (inflater: LayoutInflater) -> T): ReadO
         init {
             this@viewBinding
                 .viewLifecycleOwnerLiveData
-                .observe(this@viewBinding, Observer { owner: LifecycleOwner ->
+                .observe(this@viewBinding, { owner: LifecycleOwner ->
                     owner.lifecycle.addObserver(this)
                 })
         }
