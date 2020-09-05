@@ -15,10 +15,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:animateLayoutChanges="true"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:padding="16dp">
 
         <ImageView
@@ -26,13 +26,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/app_name"
             android:src="@drawable/ic_baseline_arrow_back_ios_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/app_name"
             app:layout_constraintVertical_bias="0" />
 
         <TextView
@@ -111,9 +111,9 @@
             android:id="@+id/ask_price"
             style="@style/AppTheme.PrimaryTextAppearance"
             android:layout_width="0dp"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:text="@{NumberUtilsKt.asPrice(book.askPrice)}"
+            android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/separator_left"
             app:layout_constraintStart_toStartOf="parent"
