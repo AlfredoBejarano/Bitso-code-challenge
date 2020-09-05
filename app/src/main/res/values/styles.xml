@@ -3,4 +3,10 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="AppTheme.TertiaryTextAppearance">
+        <item name="android:alpha">0.5</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
+    </style>
 </resources>

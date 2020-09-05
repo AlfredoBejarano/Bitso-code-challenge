@@ -3,6 +3,10 @@
 
     <data>
 
+        <import type="me.alfredobejarano.bitsocodechallenge.utils.NumberUtilsKt" />
+
+        <import type="me.alfredobejarano.bitsocodechallenge.utils.StringUtilsKt" />
+
         <variable
             name="book"
             type="me.alfredobejarano.bitsocodechallenge.model.local.Book" />
@@ -13,13 +17,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/book_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{book.book.substring(0,2)}"
+            android:text="@{StringUtilsKt.getCryptoName(book.book)}"
             android:textAllCaps="true"
             android:textColor="?android:attr/colorAccent"
             android:textSize="16sp"
@@ -28,13 +33,12 @@
             tools:text="Bitcoin" />
 
         <TextView
+            style="@style/AppTheme.TertiaryTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{book.book}"
             android:textAllCaps="true"
-            android:textColor="?android:attr/textColorTertiary"
-            android:textSize="12sp"
             app:layout_constraintBaseline_toBaselineOf="@id/book_name"
             app:layout_constraintBottom_toBottomOf="@id/book_name"
             app:layout_constraintStart_toEndOf="@+id/book_name"
@@ -46,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:text="@{NumberUtilsKt.asPrice(book.lastPrice)}"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -55,11 +60,11 @@
 
         <TextView
             android:id="@+id/dayLowHigh"
+            style="@style/AppTheme.TertiaryTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="?android:attr/textColorTertiary"
-            android:textSize="12sp"
+            android:text="@{@string/dash_separator(NumberUtilsKt.asPrice(book.dayLow),NumberUtilsKt.asPrice(book.dayHigh))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/book_last_price"
@@ -67,11 +72,11 @@
 
         <TextView
             android:id="@+id/volume"
+            style="@style/AppTheme.TertiaryTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:textColor="?android:attr/textColorTertiary"
-            android:textSize="12sp"
+            android:text="@{@string/daily_volume(NumberUtilsKt.asPrice(book.volume))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/book_last_price"
