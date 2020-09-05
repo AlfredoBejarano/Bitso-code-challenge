@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -33,6 +33,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/app_name"
             app:layout_constraintVertical_bias="0" />
 
         <TextView
@@ -43,7 +44,6 @@
             android:gravity="center"
             android:text="@{StringUtilsKt.getCryptoName(book.book)}"
             android:textAlignment="center"
-            app:drawableEndCompat="@drawable/ic_baseline_arrow_drop_down_24"
             app:layout_constraintBottom_toBottomOf="@id/back_control_icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
