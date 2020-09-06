@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import me.alfredobejarano.bitsocodechallenge.R
 import me.alfredobejarano.bitsocodechallenge.R.string.generic_error_message
 import me.alfredobejarano.bitsocodechallenge.databinding.FragmentBookListBinding
+import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
 import me.alfredobejarano.bitsocodechallenge.utils.EventManager
 import me.alfredobejarano.bitsocodechallenge.utils.observe
@@ -53,7 +54,9 @@ class BookListFragment : Fragment() {
         (binding.bookListView.adapter as? BookAdapter)?.updateList(books) ?: createAdapter(books)
 
     private fun createAdapter(books: List<Book>) {
-        binding.bookListView.adapter = BookAdapter(books, ::showBookTicker)
+        binding.bookListView.adapter = BookAdapter(books, ::showBookTicker) { inflater, parent ->
+            ItemBookBinding.inflate(inflater, parent, false)
+        }
         EventManager.reportLoading(false)
     }
 
