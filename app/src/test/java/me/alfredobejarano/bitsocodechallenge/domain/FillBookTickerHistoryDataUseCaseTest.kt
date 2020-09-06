@@ -14,26 +14,26 @@ import org.mockito.junit.MockitoJUnitRunner
 @RunWith(MockitoJUnitRunner::class)
 class FillBookTickerHistoryDataUseCaseTest {
     @Mock
-    private lateinit var getChartUseCase: GetChartUseCase
+    private lateinit var getChartUseCaseTest: GetChartUseCase
     private lateinit var testCandidate: FillBookTickerHistoryDataUseCase
 
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        testCandidate = FillBookTickerHistoryDataUseCase(getChartUseCase, CalculateGrowthUseCase())
+        testCandidate = FillBookTickerHistoryDataUseCase(getChartUseCaseTest, CalculateGrowthUseCase())
     }
 
     @Test
     fun fillBookTickerDataTest() = launchTest {
         val book = Book(book = "mana_mxn")
         val mockChart = listOf<TradeChartPoint>()
-        Mockito.`when`(getChartUseCase.getChartPoints("mana_mxn")).thenReturn(mockChart)
+        Mockito.`when`(getChartUseCaseTest.getChartPoints("mana_mxn")).thenReturn(mockChart)
 
         val newBook = testCandidate.fillBookTickerData(book)
 
         assert(newBook.chart == mockChart)
         assert(newBook.growth == 0.0)
 
-        Mockito.verify(getChartUseCase, Mockito.only()).getChartPoints("mana_mxn")
+        Mockito.verify(getChartUseCaseTest, Mockito.only()).getChartPoints("mana_mxn")
     }
 }
