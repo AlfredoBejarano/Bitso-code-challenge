@@ -12,7 +12,14 @@ import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDao
 import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDatabase
 import me.alfredobejarano.bitsocodechallenge.datasource.local.CacheManager
 import me.alfredobejarano.bitsocodechallenge.datasource.remote.BitsoApiService
+import me.alfredobejarano.bitsocodechallenge.datasource.remote.TradeChartApiService
+import me.alfredobejarano.bitsocodechallenge.model.Mapper
 import me.alfredobejarano.bitsocodechallenge.model.TickerToBookMapper
+import me.alfredobejarano.bitsocodechallenge.model.TradeChartItemToChartPointTradeChartPoint
+import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.model.local.TradeChartPoint
+import me.alfredobejarano.bitsocodechallenge.model.remote.Ticker
+import me.alfredobejarano.bitsocodechallenge.model.remote.TradeChartItem
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -46,18 +53,27 @@ class DataSourceModule {
     private val retrofitClient by lazy {
         Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(BuildConfig.BITSO_API_BASE_URL)
             .addConverterFactory(gsonConverterFactory)
-            .build()
     }
 
     @Provides
-    fun provideTickerToBookMapper() = TickerToBookMapper()
+    fun provideTickerToBookMapper(): Mapper<Ticker, Book> = TickerToBookMapper()
+
+    @Provides
+    fun provideTradeChartItemToChartPointTradeChartPoint(): Mapper<TradeChartItem, TradeChartPoint> =
+        TradeChartItemToChartPointTradeChartPoint()
 
     @Provides
     @Singleton
     fun provideBitsoApiService(): BitsoApiService =
-        retrofitClient.create(BitsoApiService::class.java)
+        retrofitClient.baseUrl(BuildConfig.BITSO_API_BASE_URL).build()
+            .create(BitsoApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideChartApiService(): TradeChartApiService =
+        retrofitClient.baseUrl(BuildConfig.TRADE_CHART_API_BASE_URL).build()
+            .create(TradeChartApiService::class.java)
 
     @Provides
     @Singleton

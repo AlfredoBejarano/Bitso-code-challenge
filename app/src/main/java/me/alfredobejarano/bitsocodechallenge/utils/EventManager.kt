@@ -12,5 +12,7 @@ object EventManager {
     private val mErrorLiveData = MutableLiveData<Throwable>()
     val errorLiveData = mErrorLiveData as LiveData<Throwable>
 
-    fun reportError(throwable: Throwable?) = mErrorLiveData.emit(throwable)
+    fun reportError(throwable: Throwable?) = mErrorLiveData.emit(throwable).also {
+        throwable?.printStackTrace()
+    }
 }

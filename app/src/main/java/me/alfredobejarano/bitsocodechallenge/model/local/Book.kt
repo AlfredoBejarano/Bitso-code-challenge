@@ -3,6 +3,7 @@ package me.alfredobejarano.bitsocodechallenge.model.local
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
@@ -11,13 +12,17 @@ import kotlinx.android.parcel.Parcelize
 data class Book(
     @ColumnInfo(name = "pk")
     @PrimaryKey(autoGenerate = false)
-    val book: String = "",
-    val volume: Double = 0.0,
-    val dayLow: Double = 0.0,
-    val dayHigh: Double = 0.0,
-    val bidPrice: Double = 0.0,
-    val askPrice: Double = 0.0,
-    val lastPrice: Double = 0.0
+    var book: String = "",
+    var volume: Double = 0.0,
+    var dayLow: Double = 0.0,
+    var dayHigh: Double = 0.0,
+    var bidPrice: Double = 0.0,
+    var askPrice: Double = 0.0,
+    var lastPrice: Double = 0.0,
+    @Ignore
+    var growth: Double = 0.0,
+    @Ignore
+    var chart: List<TradeChartPoint> = emptyList()
 ) : Parcelable {
     fun areContentsTheSame(other: Book) = book == other.book && volume == other.volume &&
             dayLow == other.dayLow && dayHigh == other.dayHigh && bidPrice == other.bidPrice &&

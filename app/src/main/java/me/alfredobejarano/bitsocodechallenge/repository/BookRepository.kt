@@ -3,14 +3,15 @@ package me.alfredobejarano.bitsocodechallenge.repository
 import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDao
 import me.alfredobejarano.bitsocodechallenge.datasource.local.CacheManager
 import me.alfredobejarano.bitsocodechallenge.datasource.remote.BitsoApiService
-import me.alfredobejarano.bitsocodechallenge.model.TickerToBookMapper
+import me.alfredobejarano.bitsocodechallenge.model.Mapper
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.model.remote.Ticker
 import javax.inject.Inject
 
 class BookRepository @Inject constructor(
     private val localDataSource: BookDao,
     private val cacheManager: CacheManager,
-    private val mapper: TickerToBookMapper,
+    private val mapper: Mapper<Ticker, Book>,
     private val remoteDataSource: BitsoApiService
 ) {
     /**

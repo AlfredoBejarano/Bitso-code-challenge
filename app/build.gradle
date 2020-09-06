@@ -21,6 +21,7 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "BITSO_API_BASE_URL", bitsoBaseUrl
+        buildConfigField "String", "TRADE_CHART_API_BASE_URL", tradeChartBaseUrl
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,8 +77,8 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.2.5'
 
     // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.6.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
 
     // Kotlin Coroutines Android

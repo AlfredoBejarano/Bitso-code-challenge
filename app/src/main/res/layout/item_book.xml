@@ -31,6 +31,7 @@
             tools:text="Bitcoin" />
 
         <TextView
+            android:id="@+id/book_name_text_view"
             style="@style/AppTheme.TertiaryTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
             tools:text="$5450.00 - $5750.00" />
 
         <TextView
-            android:id="@+id/volume"
+            android:id="@+id/volume_text_view"
             style="@style/AppTheme.TertiaryTextAppearance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,5 +79,41 @@
             app:layout_constraintTop_toBottomOf="@id/book_last_price"
             tools:text="$30.9M in 24h" />
 
+        <TextView
+            android:id="@+id/growth_text_view"
+            style="@style/AppTheme.AccentTextAppearance"
+            growth="@{book.growth}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/volume_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:drawableStart="@drawable/ic_baseline_arrow_drop_down_24"
+            tools:text="-5%"
+            tools:textColor="@color/colorRed" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/split_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <me.alfredobejarano.bitsocodechallenge.widgets.GraphView
+            android:id="@+id/graph_view"
+            chart_points="@{book.chart}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@id/volume_text_view"
+            app:layout_constraintEnd_toStartOf="@id/growth_text_view"
+            app:layout_constraintStart_toStartOf="@id/split_guideline"
+            app:layout_constraintTop_toBottomOf="@id/book_name_text_view" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -8,7 +8,7 @@ import android.util.TypedValue
 import android.view.View
 import kotlinx.coroutines.Job
 import me.alfredobejarano.bitsocodechallenge.R
-import me.alfredobejarano.bitsocodechallenge.model.local.BookChartPoint
+import me.alfredobejarano.bitsocodechallenge.model.local.TradeChartPoint
 
 /**
  * GraphView
@@ -18,10 +18,10 @@ class GraphView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    private var hasDrawn = false
     private var accentColor = 0
-    private var sortJob: Job? = null
-    private var data: List<BookChartPoint> = emptyList()
+    private var hasDrawn = false
+    private var fetchingJob: Job? = null
+    private var data: List<TradeChartPoint> = emptyList()
 
     private val linePaint by lazy {
         Paint().apply {
@@ -31,8 +31,8 @@ class GraphView @JvmOverloads constructor(
         }
     }
 
-    fun setData(bookChartPoints: List<BookChartPoint>) {
-        data = bookChartPoints
+    fun setData(tradeChartPoints: List<TradeChartPoint>) {
+        data = tradeChartPoints
         hasDrawn = false
         invalidate()
     }
@@ -44,9 +44,9 @@ class GraphView @JvmOverloads constructor(
             for (i in data.indices) {
                 if (i < (data.size - 1)) {
                     val startX = i * xSpan
-                    val startY = getLastPriceAsPixels(data[i].lastPrice)
+                    val startY = getLastPriceAsPixels(data[i].closePrice)
                     val endX = (i + 1) * xSpan
-                    val endY = getLastPriceAsPixels(data[i + 1].lastPrice)
+                    val endY = getLastPriceAsPixels(data[i + 1].closePrice)
 
                     canvas.drawLine(startX, startY, endX, endY, linePaint)
                 }
@@ -56,7 +56,7 @@ class GraphView @JvmOverloads constructor(
     }
 
     private fun getLastPriceAsPixels(lastPrice: Double): Float {
-        val maxPrice = data.maxByOrNull { it.lastPrice }?.lastPrice ?: height.toDouble()
+        val maxPrice = data.maxByOrNull { it.closePrice }?.closePrice ?: height.toDouble()
         return height - ((lastPrice * height) / maxPrice).toFloat()
     }
 
@@ -73,9 +73,9 @@ class GraphView @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        if (sortJob?.isActive == true) {
-            sortJob?.cancel()
+        if (fetchingJob?.isActive == true) {
+            fetchingJob?.cancel()
         }
-        sortJob = null
+        fetchingJob = null
     }
 }

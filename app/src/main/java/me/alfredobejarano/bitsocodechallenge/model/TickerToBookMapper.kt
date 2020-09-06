@@ -3,8 +3,8 @@ package me.alfredobejarano.bitsocodechallenge.model
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
 import me.alfredobejarano.bitsocodechallenge.model.remote.Ticker
 
-class TickerToBookMapper {
-    fun map(ticker: Ticker) = ticker.run {
+class TickerToBookMapper : Mapper<Ticker, Book> {
+    override fun map(item: Ticker) = item.run {
         Book(
             book = book.orEmpty(),
             volume = volume ?: 0.0,
