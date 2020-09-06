@@ -35,6 +35,7 @@ android {
 
     android.buildFeatures.viewBinding = true
     android.buildFeatures.dataBinding = true
+    testOptions.unitTests.returnDefaultValues = true
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -12,7 +12,5 @@ class GetChartUseCase @Inject constructor(private val repository: TradeChartRepo
      * @param book Book name (ex. btc_mxn).
      * @return [List] of price points from the book's last month.
      */
-    suspend fun getChartPoints(book: String) = repository.getChart(book).apply {
-        sortedBy { it.date }
-    }
+    suspend fun getChartPoints(book: String) = repository.getChart(book).sortedBy { it.date }
 }
