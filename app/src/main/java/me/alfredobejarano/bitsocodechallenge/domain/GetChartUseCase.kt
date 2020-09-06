@@ -6,7 +6,12 @@ import javax.inject.Inject
 /**
  * GetBookChartUseCase
  */
-class GetBookChartUseCase @Inject constructor(private val repository: TradeChartRepository) {
+class GetChartUseCase @Inject constructor(private val repository: TradeChartRepository) {
+    /**
+     * Retrieves the last month price history for the given book.
+     * @param book Book name (ex. btc_mxn).
+     * @return [List] of price points from the book's last month.
+     */
     suspend fun getChartPoints(book: String) = repository.getChart(book).apply {
         sortedBy { it.date }
     }
