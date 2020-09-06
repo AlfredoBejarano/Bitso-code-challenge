@@ -36,7 +36,7 @@ class TradeChartRepositoryTest {
     fun `get book chart`() = launchTest {
         val testBook = "btc_mxn"
 
-        val mockItem = TradeChartItem(close = 100.0, date = "2020-08-01")
+        val mockItem = TradeChartItem(close = "100.0", date = "2020-08-01")
         val mockResponse = listOf(mockItem)
         Mockito.`when`(remoteMock.getTradeChart(testBook)).thenReturn(mockResponse)
 

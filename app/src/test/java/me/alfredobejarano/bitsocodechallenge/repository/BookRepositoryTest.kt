@@ -72,7 +72,7 @@ class BookRepositoryTest {
 
         Mockito.verify(localDataSource, Mockito.never()).readAll()
         Mockito.verify(cacheDataSource, Mockito.atLeastOnce()).isBookCacheValid()
-        Mockito.verify(remoteDataSource, Mockito.times(2)).getAvailableBooks()
+        Mockito.verify(remoteDataSource, Mockito.times(1)).getAvailableBooks()
     }
 
     @Test
