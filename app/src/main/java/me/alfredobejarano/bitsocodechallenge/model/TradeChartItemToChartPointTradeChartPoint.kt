@@ -9,7 +9,7 @@ import me.alfredobejarano.bitsocodechallenge.utils.asDate
  */
 class TradeChartItemToChartPointTradeChartPoint : Mapper<TradeChartItem, TradeChartPoint> {
     override fun map(item: TradeChartItem) = TradeChartPoint(
-        closePrice = item.close ?: 0.0,
+        closePrice = item.close?.toDouble() ?: 0.0,
         date = item.date.asDate("yyyy-MM-dd").time
     )
 }

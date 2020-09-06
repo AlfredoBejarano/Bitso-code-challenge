@@ -11,17 +11,17 @@ data class TradeChartItem(
     @SerializedName("dated")
     val dated: String? = "",
     @SerializedName("value")
-    val value: Double? = 0.0,
+    val value: String? = "0.0",
     @SerializedName("volume")
-    val volume: Double? = 0.0,
+    val volume: String? = "0.0",
     @SerializedName("open")
-    val open: Double? = 0.0,
+    val open: String? = "0.0",
     @SerializedName("low")
-    val low: Double? = 0.0,
+    val low: String? = "0.0",
     @SerializedName("high")
-    val high: Double? = 0.0,
+    val high: String? = "0.0",
     @SerializedName("close")
-    val close: Double? = 0.0,
+    val close: String? = "0.0",
     @SerializedName("vwap")
-    val vwap: Double? = 0.0
+    val vwap: String? = "0.0"
 )

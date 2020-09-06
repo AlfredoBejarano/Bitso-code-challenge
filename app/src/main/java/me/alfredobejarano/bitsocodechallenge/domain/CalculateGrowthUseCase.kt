@@ -14,11 +14,15 @@ class CalculateGrowthUseCase @Inject constructor() {
      * @return Percentage difference of the Book timeline.
      */
     fun getBookGrowth(chart: List<TradeChartPoint>): Double {
+        if (chart.size < 2) return 0.0
         // Take the last two items of the timeline.
-        val lastDay = chart.takeLast(2)
-        // Calculate the difference between the last known day and the day before.
-        val difference = lastDay.first().closePrice - lastDay.last().closePrice
-        // Calculate the difference percentage.
-        return ((difference / lastDay.first().closePrice) * 100)
+        val lastDay = chart.sortedBy { it.date }.takeLast(2)
+        // Take the last two chart points close price.
+        val dayBefore = lastDay.first().closePrice
+        val currentDay = lastDay.last().closePrice
+        // Calculate the increment (or decrement) between the last two points in history.
+        val increment = currentDay - dayBefore
+        // Calculate the percentage.
+        return (increment / dayBefore) * 100
     }
 }

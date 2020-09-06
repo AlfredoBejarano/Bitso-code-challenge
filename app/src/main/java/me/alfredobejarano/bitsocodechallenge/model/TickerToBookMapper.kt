@@ -7,12 +7,12 @@ class TickerToBookMapper : Mapper<Ticker, Book> {
     override fun map(item: Ticker) = item.run {
         Book(
             book = book.orEmpty(),
-            volume = volume ?: 0.0,
-            dayLow = low ?: 0.0,
-            dayHigh = high ?: 0.0,
-            bidPrice = bid ?: 0.0,
-            askPrice = ask ?: 0.0,
-            lastPrice = last ?: 0.0
+            volume = volume?.toDouble() ?: 0.0,
+            dayLow = low?.toDouble() ?: 0.0,
+            dayHigh = high?.toDouble() ?: 0.0,
+            bidPrice = bid?.toDouble() ?: 0.0,
+            askPrice = ask?.toDouble() ?: 0.0,
+            lastPrice = last?.toDouble() ?: 0.0
         )
     }
 }

@@ -35,9 +35,9 @@ class BindingAdapters {
             )
 
             view.text = if (grow) {
-                "+$decimalText"
+                "+$decimalText%"
             } else {
-                decimalText
+                "$decimalText%"
             }
         }
 
