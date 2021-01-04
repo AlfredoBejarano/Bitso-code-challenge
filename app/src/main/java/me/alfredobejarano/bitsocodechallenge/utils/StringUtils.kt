@@ -1,5 +1,7 @@
 package me.alfredobejarano.bitsocodechallenge.utils
 
+import androidx.annotation.StringRes
+
 private const val DAI = "dai"
 private const val GOLEM = "gnt"
 private const val RIPPLE = "xrp"

@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import me.alfredobejarano.bitsocodechallenge.domain.GetBookTickerUseCase
 import me.alfredobejarano.bitsocodechallenge.domain.GetBooksUseCase
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
-import me.alfredobejarano.bitsocodechallenge.utils.launch
-import me.alfredobejarano.bitsocodechallenge.utils.poll
+import me.alfredobejarano.bitsocodechallenge.utils.executeWork
+import me.alfredobejarano.bitsocodechallenge.utils.pollWork
 
 /**
  * TickerViewModel
@@ -27,16 +27,16 @@ class TickerViewModel @ViewModelInject constructor(
 
     fun setup(bookName: String) {
         book = bookName
-        getBooks()
-        poll(::getBook)
-        poll(::getBooks)
+        // getBooks()
+        // pollWork(::getBook)
+        // pollWork(::getBooks)
     }
 
-    fun getBook() = launch(_bookLiveData) {
+    /**fun getBook() = executeWork(_bookLiveData) {
         getBookTickerUseCase.getBookTicker(book)
     }
 
-    private fun getBooks() = launch(_booksLiveData) {
+    private fun getBooks() = executeWork(_booksLiveData) {
         getBooksUseCase.getBooks()
-    }
+    }**/
 }

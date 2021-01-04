@@ -16,12 +16,13 @@ import me.alfredobejarano.bitsocodechallenge.R.string.generic_error_message
 import me.alfredobejarano.bitsocodechallenge.databinding.FragmentBookListBinding
 import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
-import me.alfredobejarano.bitsocodechallenge.utils.EventManager
-import me.alfredobejarano.bitsocodechallenge.utils.observe
-import me.alfredobejarano.bitsocodechallenge.utils.showSafely
+import me.alfredobejarano.bitsocodechallenge.utils.observeResult
+import me.alfredobejarano.bitsocodechallenge.utils.setLoadingState
+import me.alfredobejarano.bitsocodechallenge.utils.showException
 import me.alfredobejarano.bitsocodechallenge.utils.viewBinding
 import me.alfredobejarano.bitsocodechallenge.view.adapter.BookAdapter
 import me.alfredobejarano.bitsocodechallenge.viewmodel.BookListViewModel
+import java.lang.Exception
 
 @AndroidEntryPoint
 class BookListFragment : Fragment() {
@@ -36,18 +37,30 @@ class BookListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
         createSnackBar()
-        observeEventManager()
-        observeViewModel()
+        observeResult(
+            viewModel.booksLiveData,
+            binding.root::setLoadingState,
+            ::updateList,
+            snackBar::showException
+        )
+        getBooks()
+        binding
     }
 
     private fun setupViews() = binding.run {
         bookListView.layoutManager = LinearLayoutManager(requireContext())
-        swipeRefreshRoot.setOnRefreshListener { viewModel.getBooks() }
+        swipeRefreshRoot.setOnRefreshListener {
+            viewModel.getBooks()
+        }
     }
 
-    private fun observeViewModel() = viewModel.run {
-        observe(booksLiveData, ::updateList)
-        getBooks()
+    private fun createSnackBar() {
+        snackBar = Snackbar.make(binding.root, generic_error_message, LENGTH_INDEFINITE)
+        snackBar?.setAction(R.string.retry) { viewModel.getBooks() }
+    }
+
+    private fun getBooks() {
+        viewModel.getBooks()
     }
 
     private fun updateList(books: List<Book>) =
@@ -57,19 +70,8 @@ class BookListFragment : Fragment() {
         binding.bookListView.adapter = BookAdapter(books, ::showBookTicker) { inflater, parent ->
             ItemBookBinding.inflate(inflater, parent, false)
         }
-        EventManager.reportLoading(false)
     }
 
     private fun showBookTicker(book: Book) =
         findNavController().navigate(BookListFragmentDirections.showBookTicker(book))
-
-    private fun createSnackBar() {
-        snackBar = Snackbar.make(binding.root, generic_error_message, LENGTH_INDEFINITE)
-        snackBar?.setAction(R.string.retry) { viewModel.getBooks() }
-    }
-
-    private fun observeEventManager() = EventManager.run {
-        observe(loadingLiveData, binding.swipeRefreshRoot::setRefreshing)
-        observe(errorLiveData) { snackBar.showSafely() }
-    }
 }

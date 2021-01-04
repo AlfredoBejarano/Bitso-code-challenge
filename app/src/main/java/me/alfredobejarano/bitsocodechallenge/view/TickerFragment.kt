@@ -18,9 +18,7 @@ import me.alfredobejarano.bitsocodechallenge.R.string.generic_error_message
 import me.alfredobejarano.bitsocodechallenge.databinding.FragmentBookTickerBinding
 import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookQuickDetailBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
-import me.alfredobejarano.bitsocodechallenge.utils.EventManager
-import me.alfredobejarano.bitsocodechallenge.utils.observe
-import me.alfredobejarano.bitsocodechallenge.utils.showSafely
+import me.alfredobejarano.bitsocodechallenge.utils.observeResult
 import me.alfredobejarano.bitsocodechallenge.utils.viewBinding
 import me.alfredobejarano.bitsocodechallenge.view.adapter.BookAdapter
 import me.alfredobejarano.bitsocodechallenge.viewmodel.TickerViewModel
@@ -41,11 +39,10 @@ class TickerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         createSnackBar()
-        observeEvents()
         setupViews()
         viewModel.setup(args.Book.book)
-        observe(viewModel.bookLiveData, ::updateBook)
-        observe(viewModel.booksLiveData) { it.requireNoNulls().run(::updateAdapter) }
+        // observeResult(viewModel.bookLiveData, ::updateBook)
+        // observeResult(viewModel.booksLiveData) { it.requireNoNulls().run(::updateAdapter) }
     }
 
     private fun setupViews() = binding.run {
@@ -57,19 +54,11 @@ class TickerFragment : Fragment() {
 
     private fun updateBook(book: Book?) {
         book?.run(binding::setBook)
-        EventManager.reportLoading(false)
     }
 
     private fun createSnackBar() {
         snackBar = Snackbar.make(binding.root, generic_error_message, LENGTH_INDEFINITE)
-        snackBar?.setAction(R.string.retry) { viewModel.getBook() }
-    }
-
-    private fun observeEvents() = EventManager.run {
-        observe(loadingLiveData) {
-            binding.updateProgressBar.visibility = if (it) View.VISIBLE else View.GONE
-        }
-        observe(errorLiveData) { snackBar.showSafely() }
+        snackBar?.setAction(R.string.retry) { /**viewModel.getBook()**/ }
     }
 
     private fun updateAdapter(books: List<Book>) =
@@ -81,7 +70,6 @@ class TickerFragment : Fragment() {
             BookAdapter(books, ::showBook) { inflater, parent ->
                 ItemBookQuickDetailBinding.inflate(inflater, parent, false)
             }
-        EventManager.reportLoading(false)
     }
 
     private fun showBook(book: Book) {

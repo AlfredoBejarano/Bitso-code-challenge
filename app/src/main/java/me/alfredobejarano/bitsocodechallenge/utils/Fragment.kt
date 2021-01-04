@@ -6,7 +6,8 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
+import me.alfredobejarano.bitsocodechallenge.model.Result
+import java.lang.Exception
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -40,8 +41,24 @@ fun <T> Fragment.viewBinding(initialize: (inflater: LayoutInflater) -> T): ReadO
         }
     }
 
-fun <T> Fragment.observe(liveData: LiveData<T>, onChanged: (T) -> Unit) {
-    liveData.observe(viewLifecycleOwner, Observer {
-        it?.run(onChanged) ?: EventManager.reportLoading(false)
-    })
-}
+/**
+ * Observes a [LiveData] reporting a [Result] object.
+ */
+fun <T : Any> Fragment.observeResult(
+    liveData: LiveData<Result<T>>,
+    onLoading: (Boolean) -> Unit,
+    onSuccess: T.() -> Unit,
+    onError: Exception.() -> Unit
+) = liveData.observe(viewLifecycleOwner, { result ->
+    when (result) {
+        Result.Progress -> onLoading(true)
+        is Result.Success -> {
+            onLoading(false)
+            result.data.onSuccess()
+        }
+        is Result.Error -> {
+            onLoading(false)
+            result.exception.onError()
+        }
+    }
+})

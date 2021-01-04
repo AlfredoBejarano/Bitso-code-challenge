@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookBinding
 import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookQuickDetailBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
-import me.alfredobejarano.bitsocodechallenge.utils.EventManager
 
 class BookAdapter(
     private var books: List<Book>,
@@ -39,7 +38,6 @@ class BookAdapter(
             launch(Dispatchers.Main) {
                 diff.dispatchUpdatesTo(this@BookAdapter)
                 books = newItems
-                EventManager.reportLoading(false)
             }
         }
     }
