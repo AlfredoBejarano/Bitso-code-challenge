@@ -8,4 +8,7 @@
     <string name="ask_price">Ask</string>
     <string name="spread">Spread</string>
     <string name="percentage">%s%</string>
+    <string name="monthly_history_label">Last month:</string>
+    <string name="place_buy_order">Place Buy Order</string>
+    <string name="place_sell_order">Place Sell Order</string>
 </resources>

@@ -1,4 +1,4 @@
-package me.alfredobejarano.bitsocodechallenge.model
+package me.alfredobejarano.bitsocodechallenge.model.mapper
 
 /**
  * Mapper

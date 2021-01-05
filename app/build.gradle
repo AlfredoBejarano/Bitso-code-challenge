@@ -17,9 +17,11 @@ android {
         applicationId "me.alfredobejarano.bitsocodechallenge"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
+        versionCode 8
         versionName "1.0"
 
+        buildConfigField "String", "BITSO_API_KEY", bitsoApiKey
+        buildConfigField "String", "BITSO_SECRET_KEY", bitsoApiSecret
         buildConfigField "String", "BITSO_API_BASE_URL", bitsoBaseUrl
         buildConfigField "String", "TRADE_CHART_API_BASE_URL", tradeChartBaseUrl
 
@@ -101,6 +103,9 @@ dependencies {
 
     // Lottie
     implementation 'com.airbnb.android:lottie:3.1.0'
+
+    // Apache Commons
+    implementation 'commons-codec:commons-codec:1.11'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.5.11'

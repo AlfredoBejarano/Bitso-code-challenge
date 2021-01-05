@@ -2,7 +2,7 @@ package me.alfredobejarano.bitsocodechallenge.repository
 
 import launchTest
 import me.alfredobejarano.bitsocodechallenge.datasource.remote.TradeChartApiService
-import me.alfredobejarano.bitsocodechallenge.model.Mapper
+import me.alfredobejarano.bitsocodechallenge.model.mapper.Mapper
 import me.alfredobejarano.bitsocodechallenge.model.local.TradeChartPoint
 import me.alfredobejarano.bitsocodechallenge.model.remote.TradeChartItem
 import org.junit.Before

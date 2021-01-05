@@ -2,9 +2,14 @@ package me.alfredobejarano.bitsocodechallenge.repository
 
 import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDao
 import me.alfredobejarano.bitsocodechallenge.datasource.local.CacheManager
+import me.alfredobejarano.bitsocodechallenge.datasource.local.OrderDao
+import me.alfredobejarano.bitsocodechallenge.datasource.remote.AuthApiService
 import me.alfredobejarano.bitsocodechallenge.datasource.remote.BitsoApiService
-import me.alfredobejarano.bitsocodechallenge.model.Mapper
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.model.local.BookOrder
+import me.alfredobejarano.bitsocodechallenge.model.mapper.Mapper
+import me.alfredobejarano.bitsocodechallenge.model.remote.OrderDetails
+import me.alfredobejarano.bitsocodechallenge.model.remote.OrderId
 import me.alfredobejarano.bitsocodechallenge.model.remote.Ticker
 import javax.inject.Inject
 
@@ -12,7 +17,10 @@ class BookRepository @Inject constructor(
     private val localDataSource: BookDao,
     private val cacheManager: CacheManager,
     private val mapper: Mapper<Ticker, Book>,
-    private val remoteDataSource: BitsoApiService
+    private val localOrderDataSource: OrderDao,
+    private val remoteDataSource: BitsoApiService,
+    private val remoteOrderDataSource: AuthApiService,
+    private val orderMapper: Mapper<OrderId, BookOrder>
 ) {
     /**
      * Retrieves the Ticker data of a Book.
@@ -27,8 +35,7 @@ class BookRepository @Inject constructor(
      */
     private suspend fun getRemoteBooks() = remoteDataSource.getAvailableBooks().payload
         ?.map { getBookTicker(it.book.orEmpty()) }
-        ?.requireNoNulls()
-        ?.map(mapper::map)
+        ?.requireNoNulls()?.map(mapper::map)
         ?: emptyList()
 
     /**
@@ -61,4 +68,22 @@ class BookRepository @Inject constructor(
     } else {
         getBookTicker(book)?.run(mapper::map)?.also { localDataSource.createOrUpdate(it) }
     }
+
+    /**
+     * Places an order with the given [OrderDetails] (book, side).
+     * @return [BookOrder] placed for the given book.
+     */
+    suspend fun placeBookLimitOrder(orderDetails: OrderDetails): BookOrder {
+        val orderResult = remoteOrderDataSource.placeAnOrder(orderDetails).payload ?: OrderId()
+        val placedOrder = orderMapper.map(orderResult)
+        localOrderDataSource.createOrUpdate(placedOrder)
+        return placedOrder
+    }
+
+    /**
+     * Retrieves placed orders from a given book.
+     * @param bookId The book to fetch placed orders.
+     */
+    suspend fun getPlacedOrders(bookId: String) =
+        localOrderDataSource.readByBook(bookId) ?: emptyList()
 }

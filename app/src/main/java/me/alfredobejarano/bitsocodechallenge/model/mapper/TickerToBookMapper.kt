@@ -1,9 +1,13 @@
-package me.alfredobejarano.bitsocodechallenge.model
+package me.alfredobejarano.bitsocodechallenge.model.mapper
 
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
 import me.alfredobejarano.bitsocodechallenge.model.remote.Ticker
 
 class TickerToBookMapper : Mapper<Ticker, Book> {
+
+    /**
+     * **Stub**
+     */
     override fun map(item: Ticker) = item.run {
         Book(
             book = book.orEmpty(),
