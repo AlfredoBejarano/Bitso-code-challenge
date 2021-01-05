@@ -6,6 +6,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
+import java.math.BigDecimal
 
 @Parcelize
 @Entity(tableName = "Books")
@@ -19,6 +20,7 @@ data class Book(
     var bidPrice: Double = 0.0,
     var askPrice: Double = 0.0,
     var lastPrice: Double = 0.0,
+    var minimumAmount: BigDecimal = BigDecimal(0.0),
     @Ignore
     var growth: Double = 0.0,
     @Ignore

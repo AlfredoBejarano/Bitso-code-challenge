@@ -26,5 +26,13 @@
         <argument
             android:name="Book"
             app:argType="me.alfredobejarano.bitsocodechallenge.model.local.Book" />
+        <argument
+            android:name="minimumPrice"
+            app:argType="float"
+            android:defaultValue="0.0" />
+        <argument
+            android:name="minimumAmount"
+            app:argType="float"
+            android:defaultValue="0.0" />
     </fragment>
 </navigation>

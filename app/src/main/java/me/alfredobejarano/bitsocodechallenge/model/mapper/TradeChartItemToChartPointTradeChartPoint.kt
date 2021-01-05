@@ -1,4 +1,4 @@
-package me.alfredobejarano.bitsocodechallenge.model
+package me.alfredobejarano.bitsocodechallenge.model.mapper
 
 import me.alfredobejarano.bitsocodechallenge.model.local.TradeChartPoint
 import me.alfredobejarano.bitsocodechallenge.model.remote.TradeChartItem

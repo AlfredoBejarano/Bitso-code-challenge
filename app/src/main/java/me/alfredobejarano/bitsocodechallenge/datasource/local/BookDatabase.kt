@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import me.alfredobejarano.bitsocodechallenge.BuildConfig
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.model.local.BookOrder
 
-@Database(entities = [Book::class], version = BuildConfig.VERSION_CODE, exportSchema = true)
+@TypeConverters(OrderTypeConverter::class)
+@Database(entities = [Book::class, BookOrder::class], version = BuildConfig.VERSION_CODE, exportSchema = true)
 abstract class BookDatabase : RoomDatabase() {
     abstract fun provideBookDao(): BookDao
+    abstract fun provideOrderDao(): OrderDao
 
     companion object {
         @Volatile

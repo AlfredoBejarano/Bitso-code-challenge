@@ -66,7 +66,7 @@ class TickerFragment : Fragment() {
      * objects from the ViewModel.
      */
     private fun setupViewModel() {
-        viewModel.setup(args.Book.book)
+        viewModel.setup(args.Book)
         observeResult(
             liveData = viewModel.tickerLiveData,
             onSuccess = ::updateBook,
@@ -93,7 +93,6 @@ class TickerFragment : Fragment() {
      */
     private fun showBook(book: Book) {
         updateBook(book)
-        viewModel.setup(book.book)
     }
 
     /**

@@ -8,6 +8,7 @@ import me.alfredobejarano.bitsocodechallenge.domain.GetBookTickerUseCase
 import me.alfredobejarano.bitsocodechallenge.domain.GetBooksUseCase
 import me.alfredobejarano.bitsocodechallenge.model.Result
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.model.local.BookOrder
 import me.alfredobejarano.bitsocodechallenge.utils.asLiveData
 import me.alfredobejarano.bitsocodechallenge.utils.cancelSafely
 import me.alfredobejarano.bitsocodechallenge.utils.executeWork
@@ -17,8 +18,8 @@ import me.alfredobejarano.bitsocodechallenge.utils.pollWork
  * TickerViewModel
  */
 class TickerViewModel @ViewModelInject constructor(
-    private val getBookTickerUseCase: GetBookTickerUseCase,
-    private val getBooksUseCase: GetBooksUseCase
+    private val getBooksUseCase: GetBooksUseCase,
+    private val getBookTickerUseCase: GetBookTickerUseCase
 ) : ViewModel() {
     private var bookName = ""
 
@@ -34,10 +35,9 @@ class TickerViewModel @ViewModelInject constructor(
     /**
      * Assigns the currently viewed book name to this [ViewModel] instance.
      */
-    fun setup(bookName: String) {
-        this.bookName = bookName
+    fun setup(book: Book) {
+        bookName = book.book
         getBooks()
-
         bookListPollJob = pollWork(::getBooks)
         bookTickerPollJob = pollWork(::getBookTicker)
     }

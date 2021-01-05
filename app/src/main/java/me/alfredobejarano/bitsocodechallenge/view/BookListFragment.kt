@@ -62,7 +62,7 @@ class BookListFragment : Fragment() {
      */
     private fun createErrorSnackBar() {
         snackBar = Snackbar.make(binding.root, generic_error_message, LENGTH_INDEFINITE)
-        snackBar?.setAction(R.string.retry) { viewModel.getBooks() }
+        snackBar?.setAction(R.string.retry) { getBooks() }
     }
 
     /**

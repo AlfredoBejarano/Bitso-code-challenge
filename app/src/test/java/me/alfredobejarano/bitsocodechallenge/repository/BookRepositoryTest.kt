@@ -4,7 +4,7 @@ import launchTest
 import me.alfredobejarano.bitsocodechallenge.datasource.local.BookDao
 import me.alfredobejarano.bitsocodechallenge.datasource.local.CacheManager
 import me.alfredobejarano.bitsocodechallenge.datasource.remote.BitsoApiService
-import me.alfredobejarano.bitsocodechallenge.model.Mapper
+import me.alfredobejarano.bitsocodechallenge.model.mapper.Mapper
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
 import me.alfredobejarano.bitsocodechallenge.model.remote.AvailableBook
 import me.alfredobejarano.bitsocodechallenge.model.remote.BitsoResponse
