@@ -4,11 +4,12 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import me.alfredobejarano.bitsocodechallenge.domain.GetBooksUseCase
+import me.alfredobejarano.bitsocodechallenge.model.Result
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
+import me.alfredobejarano.bitsocodechallenge.utils.asLiveData
+import me.alfredobejarano.bitsocodechallenge.utils.cancelSafely
 import me.alfredobejarano.bitsocodechallenge.utils.executeWork
 import me.alfredobejarano.bitsocodechallenge.utils.pollWork
-import me.alfredobejarano.bitsocodechallenge.model.Result
-import me.alfredobejarano.bitsocodechallenge.utils.asLiveData
 
 class BookListViewModel @ViewModelInject constructor(private val getBooksUseCase: GetBooksUseCase) :
     ViewModel() {
@@ -27,6 +28,6 @@ class BookListViewModel @ViewModelInject constructor(private val getBooksUseCase
 
     override fun onCleared() {
         super.onCleared()
-        bookPollingJob.cancel()
+        bookPollingJob.cancelSafely()
     }
 }

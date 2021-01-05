@@ -46,7 +46,7 @@ fun <T> Fragment.viewBinding(initialize: (inflater: LayoutInflater) -> T): ReadO
  */
 fun <T : Any> Fragment.observeResult(
     liveData: LiveData<Result<T>>,
-    onLoading: (Boolean) -> Unit,
+    onLoading: (Boolean) -> Unit = {},
     onSuccess: T.() -> Unit,
     onError: Exception.() -> Unit
 ) = liveData.observe(viewLifecycleOwner, { result ->

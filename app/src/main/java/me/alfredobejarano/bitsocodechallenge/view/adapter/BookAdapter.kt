@@ -13,6 +13,9 @@ import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookBinding
 import me.alfredobejarano.bitsocodechallenge.databinding.ItemBookQuickDetailBinding
 import me.alfredobejarano.bitsocodechallenge.model.local.Book
 
+/**
+ * Adapter class that handles how to display a list of [Book] objects into a RecyclerView.
+ */
 class BookAdapter(
     private var books: List<Book>,
     private val onBookClick: (Book) -> Unit = {},
@@ -20,8 +23,14 @@ class BookAdapter(
 ) :
     RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
+    /**
+     * Job that will get created when an update of the list is requested.
+     */
     private var updateJob: Job? = null
 
+    /**
+     * Retrieves the amount of book objects to display.
+     */
     override fun getItemCount() = books.size
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) =
@@ -32,6 +41,9 @@ class BookAdapter(
         onBookClick
     )
 
+    /**
+     * Executes a Coroutine job to update the items in this adapter.
+     */
     fun updateList(newItems: List<Book>) {
         updateJob = GlobalScope.launch(Dispatchers.IO) {
             val diff = DiffUtil.calculateDiff(BookDiffCallback(books, newItems))
@@ -42,6 +54,10 @@ class BookAdapter(
         }
     }
 
+    /**
+     * Cancels the update job (if currently active) when this adapter gets removes from it's
+     * recyclerview.
+     */
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         if (updateJob?.isActive == true) {
@@ -50,6 +66,9 @@ class BookAdapter(
         updateJob = null
     }
 
+    /**
+     * Class that represents the details of a Book in the UI.
+     */
     class BookViewHolder(
         private val binding: ViewDataBinding,
         private val onBookClick: (Book) -> Unit
